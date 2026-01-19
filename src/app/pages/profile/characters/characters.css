@@ -1,0 +1,27 @@
+.character-wrapper:hover {
+  background-color: rgb(131, 255, 131);
+  cursor: pointer;
+}
+
+.character-card {
+  height: 100%;
+}
+
+.character-card .card-img-top {
+  height: 200px;
+  object-fit: cover;
+}
+
+.character-card .card-body {
+  padding: 0.75rem;
+}
+
+.character-card .card-title {
+  font-size: 0.95rem;
+  margin-bottom: 0.3rem;
+}
+
+.character-card .card-text {
+  font-size: 0.8rem;
+  margin-bottom: 0;
+}
