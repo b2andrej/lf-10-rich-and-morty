@@ -1,15 +1,26 @@
 <div *ngIf="characters().length > 0; else loading" class="row">
-  <div *ngFor="let character of characters()" class="col-md-3 mb-3">
-    <div class="card character-wrapper character-card">
+  <div *ngFor="let character of characters()" class="col-md-3 mb-4">
+    <div
+      class="card character-wrapper character-card"
+      [class.selected]="selectedCharacter()?.id === character.id"
+      (click)="selectCharacter(character)"
+    >
       <img [src]="character.image" class="card-img-top" [alt]="character.name" />
       <div class="card-body">
         <h5 class="card-title">{{ character.name }}</h5>
         <p class="card-text">{{ character.species }} - {{ character.status }}</p>
+        @if (selectedCharacter()?.id === character.id) {
+          <span class="badge badge-selected">✨ Ausgewählt ✨</span>
+        } @else {
+          <button class="btn btn-select btn-sm">👆 Auswählen</button>
+        }
       </div>
     </div>
   </div>
 </div>
 
 <ng-template #loading>
-  <p>Lade Charaktere...</p>
+  <div class="loading-text">
+    <p>🚀 Lade Charaktere... 🚀</p>
+  </div>
 </ng-template>

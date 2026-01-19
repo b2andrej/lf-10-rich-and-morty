@@ -1,0 +1,6 @@
+@if (character()) {
+  <div class="selected-character-badge">
+    <img [src]="character()!.image" [alt]="character()!.name" class="character-badge-image" />
+    <p class="character-badge-name">{{ character()!.name }}</p>
+  </div>
+}

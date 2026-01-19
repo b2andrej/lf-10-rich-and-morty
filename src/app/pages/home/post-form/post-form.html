@@ -1,7 +1,38 @@
-<form action="" method="post">
-  <div class="d-flex flex-column">
-    <input placeholder="Überschrift" type="text" name="title" id="title" />
-    <textarea class="mt-3" placeholder="Beitrag eingeben" name="comment" id="comment"></textarea>
-    <button type="submit" class="btn btn-primary mt-3">Posten</button>
-  </div>
-</form>
+<div class="post-form-container">
+  <h3 class="form-title">✍️ Neuen Post erstellen</h3>
+
+  @if (!selectedCharacter()) {
+    <div class="character-warning">
+      <p>⚠️ Bitte wähle zuerst einen Charakter auf der Profil-Seite aus!</p>
+      <a routerLink="/profile" class="btn-select-character">👤 Zum Profil</a>
+    </div>
+  }
+
+  <form (ngSubmit)="onSubmit()">
+    <div class="d-flex flex-column">
+      <input
+        class="form-input"
+        placeholder="📝 Überschrift eingeben..."
+        type="text"
+        name="title"
+        id="title"
+        [(ngModel)]="title"
+        [disabled]="!selectedCharacter()"
+        required
+      />
+      <textarea
+        class="form-textarea mt-3"
+        placeholder="💬 Was möchtest du teilen?..."
+        name="content"
+        id="content"
+        [(ngModel)]="content"
+        rows="5"
+        [disabled]="!selectedCharacter()"
+        required
+      ></textarea>
+      <button type="submit" class="btn-post mt-3" [disabled]="!selectedCharacter()">
+        🚀 Posten
+      </button>
+    </div>
+  </form>
+</div>

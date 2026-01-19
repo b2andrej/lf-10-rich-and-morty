@@ -1,13 +1,39 @@
 <div class="container mt-5">
   <div class="row">
     <div class="col-12">
-      <h1>Startseite</h1>
-      <p>Willkommen auf deiner Startseite!</p>
+      <div class="home-header">
+        <div class="d-flex justify-content-between align-items-center">
+          <div>
+            <h1>🌀 Startseite 🌀</h1>
+            <p>Willkommen auf deiner Startseite!</p>
+          </div>
+          <app-avatar [character]="selectedCharacter()" />
+        </div>
+      </div>
     </div>
   </div>
   <div class="row mt-3">
     <div class="col-lg-12">
-      <app-post-form></app-post-form>
+      <app-post-form (postAdded)="onPostAdded($event)"></app-post-form>
+    </div>
+  </div>
+
+  <!-- Posts anzeigen -->
+  <div class="row mt-5">
+    <div class="col-12 posts-section">
+      <h2>📝 Deine Posts</h2>
+      @if (posts.length === 0) {
+        <div class="empty-state">
+          <p>🚀 Noch keine Posts vorhanden. Erstelle deinen ersten Post! 🚀</p>
+        </div>
+      }
+      @for (post of posts; track post.id) {
+        <app-post
+          [post]="post"
+          (deletePost)="deletePost($event)"
+          (exportPost)="exportPost($event)"
+        />
+      }
     </div>
   </div>
 </div>
