@@ -4,6 +4,7 @@ import { PostComponent } from './post/post';
 import { AvatarComponent } from './avatar/avatar';
 import { CommonModule } from '@angular/common';
 import { CharacterService } from '../../services/character.service';
+import { LocalStorageService } from '../../services/local-storage.service';
 
 @Component({
   selector: 'app-home',
@@ -13,15 +14,33 @@ import { CharacterService } from '../../services/character.service';
 })
 export class Home {
   private characterService = inject(CharacterService);
+  private localStorageService = inject(LocalStorageService);
   selectedCharacter = this.characterService.selectedCharacter;
   posts: Post[] = [];
 
+  constructor() {
+    this.loadPostsFromStorage();
+  }
+
+  private loadPostsFromStorage(): void {
+    const postsData = this.localStorageService.getItem('posts');
+    if (postsData) {
+      this.posts = JSON.parse(postsData);
+    }
+  }
+
+  private savePostsToStorage(): void {
+    this.localStorageService.setItem('posts', JSON.stringify(this.posts));
+  }
+
   onPostAdded(post: Post) {
     this.posts.unshift(post); // Füge neuen Post am Anfang hinzu
+    this.savePostsToStorage();
   }
 
   deletePost(id: number) {
     this.posts = this.posts.filter((post) => post.id !== id);
+    this.savePostsToStorage();
   }
 
   exportPost(post: Post) {
