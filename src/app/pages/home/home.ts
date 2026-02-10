@@ -34,7 +34,7 @@ export class Home {
   }
 
   onPostAdded(post: Post) {
-    this.posts.unshift(post); // Füge neuen Post am Anfang hinzu
+    this.posts.unshift(post);
     this.savePostsToStorage();
   }
 
@@ -49,6 +49,7 @@ export class Home {
       characterImage: post.character?.image || null,
       title: post.title,
       content: post.content,
+      category: post.category,
       date: post.date,
     };
     const postData = JSON.stringify(exportData, null, 2);
