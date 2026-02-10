@@ -10,6 +10,11 @@
 
   <form (ngSubmit)="onSubmit()">
     <div class="d-flex flex-column">
+      @if (showValidationError) {
+        <div class="alert alert-warning" role="alert">
+          ⚠️ Bitte fülle alle Felder aus!
+        </div>
+      }
       <input
         class="form-input"
         placeholder="📝 Überschrift eingeben..."
@@ -30,6 +35,17 @@
         [disabled]="!selectedCharacter()"
         required
       ></textarea>
+      <input
+        class="form-input mt-3"
+        placeholder="Kategorie eingeben..."
+        type="text"
+        name="category"
+        id="category"
+        [(ngModel)]="category"
+        [disabled]="!selectedCharacter()"
+        required
+      />
+
       <button type="submit" class="btn-post mt-3" [disabled]="!selectedCharacter()">
         🚀 Posten
       </button>

@@ -2,21 +2,18 @@
   <div class="card-body p-4">
     <div class="d-flex">
       @if (post().character) {
-        <div class="me-3">
-          <img
-            [src]="post().character!.image"
-            [alt]="post().character!.name"
-            class="rounded-circle character-avatar"
-            style="width: 70px; height: 70px; object-fit: cover"
-          />
-        </div>
+      <div class="me-3">
+        <img [src]="post().character!.image" [alt]="post().character!.name" class="rounded-circle character-avatar"
+          style="width: 70px; height: 70px; object-fit: cover" />
+      </div>
       }
       <div class="flex-grow-1">
         @if (post().character) {
-          <h6 class="character-name mb-2">👤 {{ post().character!.name }}</h6>
+        <h6 class="character-name mb-2">👤 {{ post().character!.name }}</h6>
         }
         <h5 class="post-title mb-2">{{ post().title }}</h5>
         <p class="post-content mb-3">{{ post().content }}</p>
+        <p class="post-category mb-2">Kategorie: {{ post().category }}</p>
         <p class="text-muted small mb-3">🕒 {{ post().date | date: 'dd.MM.yyyy HH:mm' }}</p>
         <button class="btn btn-cartoon btn-export btn-sm me-2" (click)="onExport()">
           💾 Exportieren

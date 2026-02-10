@@ -9,6 +9,7 @@ export interface Post {
   title: string;
   content: string;
   date: Date;
+  category: string;
   character?: Character | null;
 }
 
@@ -25,13 +26,22 @@ export class PostForm {
 
   title = '';
   content = '';
+  category = '';
+  showValidationError = false;
 
   onSubmit() {
-    if (this.title.trim() && this.content.trim()) {
+    if (!this.title.trim() || !this.content.trim() || !this.category.trim()) {
+      this.showValidationError = true;
+      return;
+    }
+    
+    this.showValidationError = false;
+    if (this.title.trim() && this.content.trim() && this.category.trim()) {
       const newPost: Post = {
         id: Date.now(),
         title: this.title,
         content: this.content,
+        category: this.category,
         date: new Date(),
         character: this.characterService.getSelectedCharacter(),
       };
@@ -41,6 +51,7 @@ export class PostForm {
       // Formular zurücksetzen
       this.title = '';
       this.content = '';
+      this.category = '';
     }
   }
 }
