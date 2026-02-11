@@ -2,13 +2,14 @@ import { Component, inject } from '@angular/core';
 import { PostForm, Post } from './post-form/post-form';
 import { PostComponent } from './post/post';
 import { AvatarComponent } from './avatar/avatar';
+import { FilterComponent } from './filter/filter';
 import { CommonModule } from '@angular/common';
 import { CharacterService } from '../../services/character.service';
 import { LocalStorageService } from '../../services/local-storage.service';
 
 @Component({
   selector: 'app-home',
-  imports: [PostForm, PostComponent, AvatarComponent, CommonModule],
+  imports: [PostForm, PostComponent, AvatarComponent, FilterComponent, CommonModule],
   templateUrl: './home.html',
   styleUrl: './home.css',
 })
@@ -17,9 +18,18 @@ export class Home {
   private localStorageService = inject(LocalStorageService);
   selectedCharacter = this.characterService.selectedCharacter;
   posts: Post[] = [];
+  selectedCategory = 'Alle'; // Die aktuell ausgewählte Kategorie
 
   constructor() {
     this.loadPostsFromStorage();
+  }
+
+  // Gefilterte Posts basierend auf der ausgewählten Kategorie
+  get filteredPosts(): Post[] {
+    if (this.selectedCategory === 'Alle') {
+      return this.posts;
+    }
+    return this.posts.filter(post => post.category === this.selectedCategory);
   }
 
   private loadPostsFromStorage(): void {
@@ -60,5 +70,10 @@ export class Home {
     link.download = `post-${post.id}.txt`;
     link.click();
     window.URL.revokeObjectURL(url);
+  }
+
+  // Wird aufgerufen, wenn eine Kategorie im Filter ausgewählt wird
+  onCategorySelected(category: string): void {
+    this.selectedCategory = category;
   }
 }

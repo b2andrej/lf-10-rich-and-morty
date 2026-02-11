@@ -1,0 +1,15 @@
+<div class="filter-container">
+  <h3 class="filter-title">🔍 Nach Kategorie filtern</h3>
+  
+  <div class="filter-buttons">
+    @for (category of categories; track category) {
+      <button
+        class="filter-btn"
+        [class.active]="activeCategory === category"
+        (click)="selectCategory(category)"
+      >
+        {{ category }}
+      </button>
+    }
+  </div>
+</div>

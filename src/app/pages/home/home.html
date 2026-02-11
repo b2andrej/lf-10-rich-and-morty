@@ -22,12 +22,16 @@
   <div class="row mt-5">
     <div class="col-12 posts-section">
       <h2>📝 Deine Posts</h2>
-      @if (posts.length === 0) {
+      
+      <!-- Filter einbinden -->
+      <app-filter (categorySelected)="onCategorySelected($event)"></app-filter>
+      
+      @if (filteredPosts.length === 0) {
         <div class="empty-state">
           <p>🚀 Noch keine Posts vorhanden. Erstelle deinen ersten Post! 🚀</p>
         </div>
       }
-      @for (post of posts; track post.id) {
+      @for (post of filteredPosts; track post.id) {
         <app-post
           [post]="post"
           (deletePost)="deletePost($event)"

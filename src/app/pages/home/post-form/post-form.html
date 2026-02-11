@@ -35,16 +35,18 @@
         [disabled]="!selectedCharacter()"
         required
       ></textarea>
-      <input
+      <select
         class="form-input mt-3"
-        placeholder="Kategorie eingeben..."
-        type="text"
         name="category"
         id="category"
         [(ngModel)]="category"
         [disabled]="!selectedCharacter()"
         required
-      />
+      >
+        <option value="" disabled selected>Kategorie wählen...</option>
+        <option value="Lernplan">Lernplan</option>
+        <option value="Angular">Angular</option>
+      </select>
 
       <button type="submit" class="btn-post mt-3" [disabled]="!selectedCharacter()">
         🚀 Posten
