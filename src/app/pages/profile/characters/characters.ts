@@ -15,6 +15,7 @@ export class Characters {
   characters = signal<any[]>([]);
   selectedCharacter = this.characterService.selectedCharacter;
 
+  //API
   loadCharacters() {
     this.http.get('https://rickandmortyapi.com/api/character').subscribe((data: any) => {
       this.characters.set(data.results);

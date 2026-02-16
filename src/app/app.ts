@@ -13,22 +13,4 @@ import { Footer } from './footer/footer';
 })
 export class App {
   protected readonly title = signal('Rick and Morty Charaktere');
-
-  // HttpClient injizieren
-  private http = inject(HttpClient);
-
-  // Signal für die Charakter-Daten
-  characters = signal<any[]>([]);
-
-  // Methode zum Laden der Daten
-  loadCharacters() {
-    this.http.get('https://rickandmortyapi.com/api/character').subscribe((data: any) => {
-      this.characters.set(data.results);
-    });
-  }
-
-  // Beim Start laden
-  constructor() {
-    this.loadCharacters();
-  }
 }
