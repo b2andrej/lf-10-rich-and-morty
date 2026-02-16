@@ -6,6 +6,7 @@ import { FilterComponent } from './filter/filter';
 import { CommonModule } from '@angular/common';
 import { CharacterService } from '../../services/character.service';
 import { LocalStorageService } from '../../services/local-storage.service';
+import { DUMMY_POSTS } from '../../services/dummy-posts';
 
 @Component({
   selector: 'app-home',
@@ -18,13 +19,13 @@ export class Home {
   private localStorageService = inject(LocalStorageService);
   selectedCharacter = this.characterService.selectedCharacter;
   posts: Post[] = [];
-  selectedCategory = 'Alle'; // Die aktuell ausgewählte Kategorie
+  selectedCategory = 'Alle'; // Aktuell ausgewählte Kategorie
 
   constructor() {
     this.loadPostsFromStorage();
   }
 
-  // Gefilterte Posts basierend auf der ausgewählten Kategorie
+  // Post Filter
   get filteredPosts(): Post[] {
     if (this.selectedCategory === 'Alle') {
       return this.posts;
@@ -36,6 +37,10 @@ export class Home {
     const postsData = this.localStorageService.getItem('posts');
     if (postsData) {
       this.posts = JSON.parse(postsData);
+    } else {
+      // Dummy-Post laden
+      this.posts = [...DUMMY_POSTS];
+      this.savePostsToStorage();
     }
   }
 
@@ -72,7 +77,6 @@ export class Home {
     window.URL.revokeObjectURL(url);
   }
 
-  // Wird aufgerufen, wenn eine Kategorie im Filter ausgewählt wird
   onCategorySelected(category: string): void {
     this.selectedCategory = category;
   }
